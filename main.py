@@ -6,11 +6,13 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 # Paths
-BOT_SCRIPT = "telegram_bot.py"
+BOT_SCRIPT = os.path.join("TEST_TG_BOT", "bot.py")
 REMOTE_SCRIPT = "remote.py"
 JSON_FILE = "blog_posts.json"
 
+
 class BlogPostHandler(FileSystemEventHandler):
+
     def __init__(self):
         self.last_position = 0
 
@@ -27,10 +29,12 @@ class BlogPostHandler(FileSystemEventHandler):
                 subprocess.run(["python", REMOTE_SCRIPT])
                 self.last_position = f.tell()
 
+
 def run_bot():
     print("Starting Telegram bot...")
     bot_process = subprocess.Popen(["python", BOT_SCRIPT])
     return bot_process
+
 
 def monitor_json_file():
     print(f"Monitoring {JSON_FILE} for changes...")
@@ -39,6 +43,7 @@ def monitor_json_file():
     observer.schedule(event_handler, path='.', recursive=False)
     observer.start()
     return observer
+
 
 def main():
     # Ensure the JSON file exists
@@ -59,9 +64,10 @@ def main():
         print("Shutting down...")
         observer.stop()
         bot_process.terminate()
-    
+
     observer.join()
     bot_process.wait()
+
 
 if __name__ == "__main__":
     main()
