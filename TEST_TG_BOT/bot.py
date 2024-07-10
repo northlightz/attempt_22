@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-# pylint: disable=unused-argument
+# THIS IS ALL CREATED BY AI BECUSE IM A LAZY BITCHASS HAHAHAHAHAHAHHAH :3
+
 
 import logging
 from telegram import Update
